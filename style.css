@@ -8,7 +8,7 @@ body {
 }
 
 .setter {
-  margin: 0px 100px 0px 100px;
+  margin: 0px 50px 0px 50px;
 }
 
 .button {
@@ -21,9 +21,30 @@ body {
   color: black;
 }
 
-#click-me-button:hover {
-cursor: pointer;
-background-color: rgba(255, 255, 255, 0.637);
+.button:hover {
+  cursor: pointer;
+  background-color: rgb(223, 223, 223)
+}
 
+input {
+  border: 1px solid #ccc; /* Set a default border color */
+  border-radius: 1px;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+  margin: auto;
 
 }
+
+input:focus {
+  border: 1px solid #ccc; /* Maintain the same border on focus */
+  outline: none; /* Ensure no outline appears on focus */
+}
+
+.BoxColor{
+width: 100px;
+height: 100px;
+background-color: black;
+display:block;
+
+}
+

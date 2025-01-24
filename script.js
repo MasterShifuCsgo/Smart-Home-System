@@ -1,61 +1,59 @@
-const clickMe = document.getElementById("click-me-button");
-const text = document.getElementById("text");
-const header = document.getElementById("header");
-const input = document.getElementById("inputField");
-const addToList = document.querySelector(".add-to-list");
+
+const colorInput = document.querySelector(".colorNameField");
+const changeColorButton = document.querySelector(".changeColorButton");
+const BoxToColor = document.querySelector(".BoxColor");
+const CycleButton = document.querySelector(".Cycle");
+
+/*
+# 11 22 33 44 
+11 red
+22 green
+33 blue
+44 opacity
+*/ 
 
 
-const list = ["1", "2", "3"]; 
-let count = 0;
+function changeBoxColorTo(color){
+  BoxToColor.style.backgroundColor = color
+}
+  
+function decimalToHex(pattern){
 
-function Update(){
+  //convert into binary.
+  
 
-  let content = "";
-  for(let i = 0; i < list.length; i++){
-    content += list[i] + " "
-  }
-
-  header.textContent = content;
+}
+const listOfColors = {
+  green: "#00FF00FF",
+  blue: "#0000FFFF",
+  red: "#FF0000FF"
 }
 
-Update();
+changeColorButton.addEventListener("click", function () {
 
-
-
-
-clickMe.addEventListener('click', function (e) {
-  text.textContent = list[count % list.length];
-  count++;
-  Update();
-});
-
-input.addEventListener("keydown", function (e){
-  
-  if(e.key != "Enter"){
-    return;
-  }
-  if(input.value == list[list.length -1]){
-    return;
-  }
-
-  list.push(input.value);
-  Update();
-});
-
-addToList.addEventListener("click", function (e){
-  
-  console.log("addToList clicked.");
-
-  input.value.trim();
-  if(e.key != "Enter" && input.value == list[list.length -1]){
-    return;
-  }
-
-  list.push(input.value);
-  Update();
+const color = colorInput.value;
+console.log(color);
+if(listOfColors[color] == null){
+  return;
+}
+changeBoxColorTo(listOfColors[color]);
 });
 
 
+
+CycleButton.addEventListener("click", function (){
+
+  let color= {
+    1:255,
+    2:255,
+    3:255
+  };
+  while(true){
+
+    changeBoxColorTo(decimalToHex(color));
+    setTimeout(100);
+  }
+});
 
 
 
