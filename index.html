@@ -21,15 +21,27 @@
   <div class="container">
     <div class="setter">
 
+      <div id="Area">
       <button class="button changeColorButton">Change Color</button>
-      <button class="button Cycle">Cycle through colors</button>
       <input class="colorNameField" type="text" placeholder="enter color name">
+      </div>
+      <div id="Area">
+        <div>
+          <input class="CycleDelayValue" type="text" value="1">
+          <button class="button CycleButtonFunctionDelayButton">Set Delay</button>
+        </div>
+        <div>
+          <input class="CycleStepValue" type="text" value="1">
+          <button class="button CycleButtonFunctionStepButton">Set Step</button>
+        </div>
+        <button class="button Cycle">Cycle through colors</button>
+        <button class="button StopCycle">Stop</button>
+      </div>
+      
+      
       <div class="BoxColor"></div>
     </div>
   </div>
-
-
-
   <script src="script.js"></script>
 </body>
 

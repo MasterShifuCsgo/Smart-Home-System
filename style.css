@@ -16,9 +16,10 @@ body {
   font-weight: 800;
   border-radius: 1000px;
   border: none;
-  padding: 9px;
+  padding: 9px 11px 9px 11px;
   background-color: white;
   color: black;
+  margin: 1px;
 }
 
 .button:hover {
@@ -31,7 +32,7 @@ input {
   border-radius: 1px;
   border-radius: 5px;
   padding: 5px 5px 5px 5px;
-  margin: auto;
+  margin: 1px 2px 1px 2px;
 
 }
 
@@ -45,6 +46,9 @@ width: 100px;
 height: 100px;
 background-color: black;
 display:block;
-
 }
 
+#Area{
+  padding: 5px;
+  margin: 18px;
+}

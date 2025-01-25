@@ -3,6 +3,12 @@ const colorInput = document.querySelector(".colorNameField");
 const changeColorButton = document.querySelector(".changeColorButton");
 const BoxToColor = document.querySelector(".BoxColor");
 const CycleButton = document.querySelector(".Cycle");
+const CycleDelayValue = document.querySelector(".CycleDelayValue");
+const CycleStepValue = document.querySelector(".CycleStepValue");
+const CycleButtonFunctionDelayButton = document.querySelector(".CycleButtonFunctionDelayButton");
+const CycleButtonFunctionStepButton = document.querySelector(".CycleButtonFunctionStepButton");
+const StopCycle = document.querySelector('.StopCycle');
+
 
 /*
 # 11 22 33 44 
@@ -12,27 +18,17 @@ const CycleButton = document.querySelector(".Cycle");
 44 opacity
 */ 
 
-const decimaltoHexTable = {
-  0:"0",
-  1:"1",
-  2:"2",
-  3:"3",
-  4:"4",
-  5:"5",
-  6:"6",
-  7:"7",
-  8:"8",
-  9:"9",
-  10:"A",
-  11:"B",
-  12:"C",
-  13:"D",
-  14:"E",
-  15:"F"
-};
+//  USER! do not touch default values
+let CycleButtonFunctionDelay = 1; //default values
+let CycleButtonFunctionStep = 10;
 
-let delay = 0.01;
-let color = [0,0,0];
+const listOfColors = {
+  green: [0,255,0],
+  red: [255,0,0],
+  blue: [0,0,255]
+}
+
+
 function changeBoxColorTo(color){
   r = color[0];
   g = color[1];
@@ -40,34 +36,15 @@ function changeBoxColorTo(color){
   BoxToColor.style.backgroundColor = `rgb(${r},${g},${b})`;
 }
 
-const listOfColors = {
-  green: "#00FF00FF",
-  blue: "#0000FFFF",
-  red: "#FF0000FF"
-}
-
-changeColorButton.addEventListener("click", function () {
-
-const color = colorInput.value;
-if(listOfColors[color] == null){
-  return;
-}
-
-changeBoxColorTo(listOfColors[color]);
-});
-
-function MakeAllColorsSame(value, color){
-  for(let i = 0; i < color.length; i++){
-    color[i] = value;
-  }
-}
-
-async function CycleButtonFunction(delay){
+let isCycleButtonFunctionCycling = false;
+async function CycleButtonFunction(delay, step){
+  let color = [0,0,0];
   //loop through the colors and change one color value individually
+  isCycleButtonFunctionCycling = true;
   for(let i = 0; i < color.length; i++){
     let end = true;
     let direction = true;
-    while(end){
+    while(end && isCycleButtonFunctionCycling){
 
       //changes the adding direction.
       if(color[i] > 255 || color[i] < 0){
@@ -75,7 +52,7 @@ async function CycleButtonFunction(delay){
       }
 
       //updating the current color
-      color[i] += direction ? 1:-1;
+      color[i] += direction ? step:(step * -1);
       
       //changing box color
       changeBoxColorTo(color);
@@ -91,9 +68,42 @@ async function CycleButtonFunction(delay){
   }
 };
 
-CycleButton.addEventListener("click", function() {
-  CycleButtonFunction(delay);
+changeColorButton.addEventListener("click", function () {
+const color = colorInput.value;
+if(listOfColors[color] == null){
+  return;
+}
+changeBoxColorTo(listOfColors[color]);
 });
+
+CycleButtonFunctionDelayButton.addEventListener("click", function(){
+  try{
+    CycleButtonFunctionDelay = Number(CycleDelayValue.value);
+  }catch(err){
+    console.log("cannot convert Delay value to number");
+  }
+  console.log("CycleButtonFunctionDelay: " + CycleButtonFunctionDelay);
+})
+
+CycleButtonFunctionStepButton.addEventListener("click", function(){
+  try{
+    CycleButtonFunctionStep = Number(CycleStepValue.value);
+  }catch(err){
+    console.log("cannot convert Step value to number");
+  }
+  console.log("CycleButtonFunctionStep: " + CycleButtonFunctionStep);
+})
+
+CycleButton.addEventListener("click", function() {
+  CycleButtonFunction(CycleButtonFunctionDelay, CycleButtonFunctionStep);
+});
+
+StopCycle.addEventListener("click", function(){
+  isCycleButtonFunctionCycling = false;
+  changeBoxColorTo([0,0,0]);
+})
+
+
 
 
 
