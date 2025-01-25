@@ -31,14 +31,14 @@ const decimaltoHexTable = {
   15:"F"
 };
 
+let delay = 0.01;
+let color = [0,0,0];
 function changeBoxColorTo(color){
   r = color[0];
   g = color[1];
   b = color[2];
-
   BoxToColor.style.backgroundColor = `rgb(${r},${g},${b})`;
 }
-
 
 const listOfColors = {
   green: "#00FF00FF",
@@ -62,38 +62,37 @@ function MakeAllColorsSame(value, color){
   }
 }
 
-let direction = true;
-function addOneToColor(colorValue){
-  if(colorValue > 255){
-    direction = false;
-  }else if(colorValue < 0){
-    direction = true;
-  }
-  if(direction){
-    colorValue++;
-  }else{
-    colorValue--;
-  }
-  return colorValue
-}
+async function CycleButtonFunction(delay){
+  //loop through the colors and change one color value individually
+  for(let i = 0; i < color.length; i++){
+    let end = true;
+    let direction = true;
+    while(end){
 
-let color = [0,0,0];
+      //changes the adding direction.
+      if(color[i] > 255 || color[i] < 0){
+        direction = !direction; //flips direction
+      }
 
-let num = 255*2;
-function CycleButtonFunction(){
-for(let i = 0; i < color.length; i++){
-  while(num > 0){
-    color[i] = addOneToColor(color[i]);
-    num--;
+      //updating the current color
+      color[i] += direction ? 1:-1;
+      
+      //changing box color
+      changeBoxColorTo(color);
+
+      //ending loop if color reaches back to 0
+      if(color[i] === 0){
+        end = false;
+      }
+
+      //adding a delay in the while loop
+      await new Promise((resolve) => setTimeout(resolve, delay)); 
+    }
   }
-  num = 255*2;
-}
-  //MakeAllColorsSame(colorValue, color)
-  changeBoxColorTo(color);
 };
 
 CycleButton.addEventListener("click", function() {
-  setInterval(CycleButtonFunction, 1);
+  CycleButtonFunction(delay);
 });
 
 
