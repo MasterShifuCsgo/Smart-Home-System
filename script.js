@@ -20,7 +20,7 @@ const StopCycle = document.querySelector('.StopCycle');
 
 //  USER! do not touch default values
 let CycleButtonFunctionDelay = 1; //default values
-let CycleButtonFunctionStep = 10;
+let CycleButtonFunctionStep = 1;
 
 const listOfColors = {
   green: [0,255,0],
